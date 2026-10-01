@@ -1,0 +1,186 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Talenfra Accelerator Plan</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap">
+<style>
+/* Layout: one working page. Verdict first, then program table, date strip, readiness bars, gap list. Teal = brand; semantic colours only for state. */
+:root{
+  --bg:#f3f6f6; --surface:#ffffff; --fg:#14262a; --muted:#5a6f73; --line:#d5e0e1;
+  --accent:#0a7f70; --accent-soft:#dff1ee;
+  --good:#1f8a4c; --good-soft:#dcf1e4; --warn:#a96a00; --warn-soft:#fbeccd; --bad:#b3372c; --bad-soft:#f8dedb;
+  --font-body:"IBM Plex Sans",system-ui,sans-serif; --font-mono:"IBM Plex Mono",ui-monospace,monospace; --font-display:"Newsreader",Georgia,serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1b1d; --surface:#162427; --fg:#e4eeee; --muted:#93a9ac; --line:#28393c;
+  --accent:#4fd1bd; --accent-soft:#18363a;
+  --good:#58d08a; --good-soft:#173a29; --warn:#e8b34f; --warn-soft:#3b2f14; --bad:#f08a7e; --bad-soft:#3d1f1c; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1b1d; --surface:#162427; --fg:#e4eeee; --muted:#93a9ac; --line:#28393c;
+  --accent:#4fd1bd; --accent-soft:#18363a;
+  --good:#58d08a; --good-soft:#173a29; --warn:#e8b34f; --warn-soft:#3b2f14; --bad:#f08a7e; --bad-soft:#3d1f1c; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:15px;line-height:1.5;padding-inline:16px;padding-block:24px}
+main{max-width:1040px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+h1,h2{font-family:var(--font-display);font-weight:600;text-wrap:balance;margin:0}
+h1{font-size:clamp(26px,5vw,38px);line-height:1.15}
+h2{font-size:22px;margin-bottom:12px}
+p{margin:0}
+.muted{color:var(--muted)}
+.mono{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
+.eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+header{display:flex;flex-direction:column;gap:8px}
+.verdict{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px;display:grid;grid-template-columns:1.2fr 1fr;gap:24px}
+.verdict h2{margin-bottom:8px}
+.verdict ul{margin:8px 0 0;padding-left:18px;display:flex;flex-direction:column;gap:4px}
+.pills{display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start}
+.pill{font-size:13px;padding:4px 10px;border-radius:999px;font-weight:500}
+.pill.good{background:var(--good-soft);color:var(--good)}
+.pill.bad{background:var(--bad-soft);color:var(--bad)}
+.pill.warn{background:var(--warn-soft);color:var(--warn)}
+.pill.neutral{background:var(--accent-soft);color:var(--accent)}
+.scroll{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;min-width:720px;font-size:14px}
+th{font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);font-weight:500}
+td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td.rank{font-family:var(--font-mono);color:var(--muted);width:36px}
+td.name{font-weight:600}
+td.name small{display:block;font-weight:400;color:var(--muted)}
+.fit{display:flex;gap:3px}
+.fit i{width:14px;height:8px;border-radius:2px;background:var(--line);display:block}
+.fit i.on{background:var(--accent)}
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.date{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:2px}
+.date b{font-family:var(--font-mono);font-size:18px}
+.date.soon{border-color:var(--bad)}
+.date.main{border-color:var(--accent)}
+.bars{display:grid;grid-template-columns:1fr 1fr;gap:10px 28px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px}
+.bar{display:grid;grid-template-columns:150px 1fr 24px;gap:10px;align-items:center;font-size:14px}
+.track{height:10px;border-radius:5px;background:var(--line);overflow:hidden}
+.track span{display:block;height:100%;border-radius:5px}
+.s-good{background:var(--good)} .s-warn{background:var(--warn)} .s-bad{background:var(--bad)}
+.gaps{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px}
+.card h3{margin:0 0 8px;font-size:15px;display:flex;justify-content:space-between;gap:8px}
+.card ol,.card ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:5px;font-size:14px}
+footer{font-size:13px;color:var(--muted)}
+@media(max-width:720px){
+  .verdict,.bars,.gaps{grid-template-columns:1fr}
+  .bar{grid-template-columns:120px 1fr 22px}
+}
+</style>
+<main>
+<header>
+  <span class="eyebrow">Read on 2026-10-01 · two founders · Lucknow</span>
+  <h1>Talenfra accelerator plan</h1>
+  <p class="muted">Which programs fit, when they close, how ready the project is, and what to finish first.</p>
+</header>
+
+<section class="verdict" aria-label="Verdict">
+  <div>
+    <h2>Not ready yet. The product is. The proof is not.</h2>
+    <p>You can apply to YC without a company, and YC funds pre-revenue teams. But with no customers, no conversations and no entity, odds are low (about 1% get in) in a crowded category.</p>
+    <ul>
+      <li>Strongest card: a built, tested, security-reviewed product.</li>
+      <li>Biggest gap: nobody has used it, and it has never run live.</li>
+      <li>Weak spot: custom build per client reads as a dev shop.</li>
+    </ul>
+  </div>
+  <div class="pills">
+    <span class="pill good">Product built · 378 tests pass</span>
+    <span class="pill good">Evidence for every score</span>
+    <span class="pill good">Two founders</span>
+    <span class="pill bad">0 customers</span>
+    <span class="pill bad">Sole proprietorship</span>
+    <span class="pill bad">Not live on a server</span>
+    <span class="pill warn">Website over-promises</span>
+    <span class="pill warn">Full-time status unclear</span>
+  </div>
+</section>
+
+<section>
+  <h2>Dates that matter</h2>
+  <div class="strip">
+    <div class="date soon"><span class="mono muted">2 Oct</span><b>500 Global</b><span class="muted">$35,000 fee. Skip.</span></div>
+    <div class="date"><span class="mono muted">5 Oct</span><b>EF Bangalore</b><span class="muted">Early deadline. Optional.</span></div>
+    <div class="date main"><span class="mono muted">12 Oct – 1 Nov</span><b>a16z speedrun</b><span class="muted">Fast-review window.</span></div>
+    <div class="date main"><span class="mono muted">2 Nov · 8pm PT</span><b>Y Combinator</b><span class="muted">Winter 2027. Decisions by 11 Dec.</span></div>
+    <div class="date"><span class="mono muted">18 Nov</span><b>Techstars</b><span class="muted">London / NYC, Spring 2027.</span></div>
+    <div class="date"><span class="mono muted">≈ 1 Feb 2027</span><b>South Park Commons</b><span class="muted">Estimate from last year.</span></div>
+  </div>
+</section>
+
+<section>
+  <h2>The 10 programs, ranked for you</h2>
+  <div class="scroll">
+  <table>
+    <thead><tr><th>#</th><th>Program</th><th>Terms</th><th>Next date</th><th>Visa</th><th>Fit</th></tr></thead>
+    <tbody>
+      <tr><td class="rank">1</td><td class="name">Y Combinator<small>San Francisco · 3 months</small></td><td>$500K · 7% + MFN SAFE · no fee</td><td class="mono">2 Nov 2026</td><td>YC lawyers</td><td><div class="fit" aria-label="Fit 3 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div></td></tr>
+      <tr><td class="rank">2</td><td class="name">a16z speedrun<small>San Francisco · ~12 weeks</small></td><td>Up to $1M · 10%</td><td class="mono">1 Nov 2026 window</td><td>Yes</td><td><div class="fit" aria-label="Fit 3 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div></td></tr>
+      <tr><td class="rank">3</td><td class="name">Antler India AI Residency<small>Bangalore · 3 weeks</small></td><td>₹4 Cr · 11%</td><td class="mono">Not announced</td><td>Not needed</td><td><div class="fit" aria-label="Fit 4 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div></td></tr>
+      <tr><td class="rank">4</td><td class="name">South Park Commons<small>Bangalore / SF / NYC</small></td><td>$400K · 7% + $600K next round</td><td class="mono">≈ Feb 2027</td><td>Bangalore hub</td><td><div class="fit" aria-label="Fit 3 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div></td></tr>
+      <tr><td class="rank">5</td><td class="name">Alchemist<small>SF week + hybrid · 6 months</small></td><td>~5% · ~$30K net</td><td class="mono">Unverified</td><td>Not stated</td><td><div class="fit" aria-label="Fit 3 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></div></td></tr>
+      <tr><td class="rank">6</td><td class="name">Entrepreneur First<small>Bangalore then SF</small></td><td>₹3.6 lakh; $125K · 8%</td><td class="mono">5 Oct 2026</td><td>Yes</td><td><div class="fit" aria-label="Fit 2 of 5"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></div></td></tr>
+      <tr><td class="rank">7</td><td class="name">Techstars<small>London / NYC</small></td><td>$220K · 5% + MFN SAFE</td><td class="mono">18 Nov 2026</td><td>After acceptance</td><td><div class="fit" aria-label="Fit 2 of 5"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></div></td></tr>
+      <tr><td class="rank">8</td><td class="name">Nasscom GenAI Foundry<small>India · HR/talent track in 2025</small></td><td>No equity found</td><td class="mono">2026 unconfirmed</td><td>Not needed</td><td><div class="fit" aria-label="Fit 4 of 5 if a cohort opens"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div></td></tr>
+      <tr><td class="rank">9</td><td class="name">Google for Startups India<small>3 months · equity-free</small></td><td>Credits, mentors</td><td class="mono">≈ Spring 2027</td><td>Not needed</td><td><div class="fit" aria-label="Fit 2 of 5"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></div></td></tr>
+      <tr><td class="rank">10</td><td class="name">Peak XV Surge<small>India / SE Asia</small></td><td>$500K – $5M seed</td><td class="mono">Rolling</td><td>Not needed</td><td><div class="fit" aria-label="Fit 2 of 5"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></div></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="muted" style="margin-top:8px">Fit is my judgement, 1 to 5. The order blends prestige, fit and whether a date is open now, so it is not the fit column alone. Antler India and Nasscom score 4 only once a cohort is open; Alchemist and Google India improve after 2–3 pilots.</p>
+</section>
+
+<section>
+  <h2>How ready is Talenfra today?</h2>
+  <div class="bars">
+    <div class="bar"><span>Product</span><div class="track"><span class="s-good" style="width:100%"></span></div><b class="mono">5</b></div>
+    <div class="bar"><span>Differentiation</span><div class="track"><span class="s-good" style="width:80%"></span></div><b class="mono">4</b></div>
+    <div class="bar"><span>Team</span><div class="track"><span class="s-warn" style="width:60%"></span></div><b class="mono">3</b></div>
+    <div class="bar"><span>Market</span><div class="track"><span class="s-warn" style="width:60%"></span></div><b class="mono">3</b></div>
+    <div class="bar"><span>Compliance</span><div class="track"><span class="s-warn" style="width:60%"></span></div><b class="mono">3</b></div>
+    <div class="bar"><span>Business model</span><div class="track"><span class="s-bad" style="width:40%"></span></div><b class="mono">2</b></div>
+    <div class="bar"><span>Public claims</span><div class="track"><span class="s-bad" style="width:40%"></span></div><b class="mono">2</b></div>
+    <div class="bar"><span>Pitch assets</span><div class="track"><span class="s-bad" style="width:40%"></span></div><b class="mono">2</b></div>
+    <div class="bar"><span>Traction</span><div class="track"><span class="s-bad" style="width:20%"></span></div><b class="mono">1</b></div>
+    <div class="bar"><span>Legal entity</span><div class="track"><span class="s-bad" style="width:20%"></span></div><b class="mono">1</b></div>
+  </div>
+</section>
+
+<section>
+  <h2>What to finish first</h2>
+  <div class="gaps">
+    <div class="card"><h3>Must do <span class="pill bad">decides the application</span></h3>
+      <ol>
+        <li>Talk to 15–30 staffing firms; get 2–5 to run a real role.</li>
+        <li>Put the engine live at app.talenfra.com.</li>
+        <li>Founder agreement, vesting, IP assignment; decide with lawyers and a CA whether to set up a Pvt Ltd now (optional) or flip after acceptance.</li>
+        <li>Remove website promises the engine cannot keep (ATS, Sheets, Slack, video, accuracy numbers).</li>
+        <li>Write one sharp answer to "why not Bullhorn or LinkedIn?"</li>
+        <li>Settle founder facts: full-time, who codes, third person's role.</li>
+      </ol></div>
+    <div class="card"><h3>Should do <span class="pill warn">raises the odds</span></h3>
+      <ol>
+        <li>1-minute founder video, demo, 10-slide investor deck, metrics sheet.</li>
+        <li>Choose a pricing story that scales.</li>
+        <li>Finish the DPA and write a 1-page security and bias note.</li>
+        <li>Fix the erasure gaps in the engine before real CVs.</li>
+        <li>Measure agreement with a recruiter's own shortlist.</li>
+        <li>Check passports and visa appointment waits.</li>
+      </ol></div>
+  </div>
+</section>
+
+<section>
+  <h2>Three things to know before you start</h2>
+  <div class="gaps">
+    <div class="card"><h3>Apply first, flip later</h3><p class="muted">YC needs no company to apply, but its money goes to a US, Canada, Singapore or Cayman company. Indian founders need a CA and a FEMA lawyer for the flip (an LLP per founder is the usual route).</p></div>
+    <div class="card"><h3>Visas</h3><p class="muted">E-2 is closed to Indians. Most YC founders come on B-1, then O-1A. H-1B now costs $100,000. Bangalore programs need no visa.</p></div>
+    <div class="card"><h3>AI hiring laws</h3><p class="muted">EU AI Act high-risk rules start 2 Dec 2027; Colorado 1 Jan 2027; NYC, Illinois and California already apply. Your evidence-for-every-score design helps here.</p></div>
+    <div class="card"><h3>Scams</h3><p class="muted">Real accelerators pay you. Walk away from application fees, fee plus equity, and unnamed mentors. 500 Global is real but now charges $35,000.</p></div>
+  </div>
+</section>
+
+<footer>Facts read on 2026-10-01 from official pages where possible; deadlines change, so recheck before you apply. Legal and tax points need a lawyer or CA. Full detail in the numbered files beside this page.</footer>
+</main>
