@@ -34,12 +34,14 @@ Plain-English research on applying to Y Combinator and similar programs. Done by
 - Fit scores and the readiness scorecard are my judgement, not official ratings.
 - Legal and tax items marked [LAWYER/CA] need a professional. I am not a lawyer.
 
-## Questions I still have for you (answers change the advice)
-1. Are you both full-time on Talenfra from now? (Your strategy notes say you started alongside a job; YC and Techstars expect full-time.)
-2. Who is the third person on the website, Aqdas: co-founder, adviser or contractor?
-3. Which price story do you want to lead with: subscription, per shortlist, per hire, or build + retainer?
-4. Do you want to aim for YC on 2 Nov, or use the next 4–8 weeks to get pilots first and apply through "Early Decision"/the next batch? (Recommendation in `04`; your call.)
-5. Which items in `04-gap-list.md` should I turn into a plan next?
+## Open questions and my recommendations (updated 2026-10-02)
+Items 1 and 2 are facts only you can give. Items 3 to 5 have my recommendation; none of them is a decision until you confirm it.
+
+1. **Are you both full-time on Talenfra?** — **Open, needs your answer.** The only mention in the project is an early planning brief ("4 hours per day alongside a job"), which may be out of date. YC and Techstars expect full-time founders. If one of you has a job, the application should say when you go full-time.
+2. **Who is Aqdas on the website?** — **Open, needs your answer.** The site lists Aqdas as "Cyber Security Expert"; you said only you and Bushra are founders. Decide whether Aqdas is an adviser, contractor or future hire and make the site say so, because YC asks about every founder.
+3. **Which price story to lead with?** — **Recommendation:** a simple per-role price (a fixed fee per screened role or shortlist). It looks like software, is easy for a small staffing firm to accept, and fits YC's "sell the finished work" idea. Keep the dedicated per-client instance as an enterprise option. Test a per-hire price later (as Prism does). Avoid leading with the $5,500 build + $2,200/month retainer, which reads as a dev shop.
+4. **YC on 2 Nov, or pilots first?** — **Recommendation:** do both. Apply on 2 Nov anyway (free, no company needed, reapplying is normal). Use the next four weeks to start outreach and get real conversations and one or two pilots, and put them in the application. If you have nothing by about 25 Oct, still submit an honest application and plan a stronger re-application (Early Decision or the next batch) with real numbers. Do not wait only for YC: Antler India and the a16z window can run alongside.
+5. **Which gap items to plan next?** — **Recommended order:** (1) outreach kit (target list, message templates, call script for staffing owners); (2) go live at app.talenfra.com using `docs/FIRST_DEPLOY_PLAN.md`; (3) fix the website over-promises; (4) pitch pack (founder video script, investor deck, metrics sheet); (5) company paperwork, which is for your lawyers and a CA, so only prepare questions for them. Tell me which ones you pick and I will write a plan first.
 
 ## Verification (done 2026-10-01)
 A separate Opus verifier agent re-checked the finished files. It re-fetched the 8 highest-stakes official pages (YC deadline and terms, YC non-US rule, 500 Global, a16z speedrun, Antler India, EF Bangalore, Techstars, SPC): **all matched; no wrong deadline or amount found.** It also checked project facts against the repo (sole proprietorship, website over-promises, 25 DPA FILL slots, erasure gap, demo video, no investor deck).
